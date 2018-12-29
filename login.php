@@ -9,13 +9,15 @@ $db = "tugas";
 $conn = mysqli_connect($host, $username, $pass, $db);
 if(!$conn){
 	echo '<script language="javascript">';
-	echo 'alert("Login gagal. Cek username dan password.")';
+	echo 'alert("Login gagal. Cek username dan password.");
+			window.location.href="index.html";';
 	echo '</script>';
+	
 }else{
 	session_start();
 	$_SESSION['username'] = $username;
 	$_SESSION['pass'] = $pass;
-	header("location:add.php");
+	header("location:view.php");
 }
 
 ?>

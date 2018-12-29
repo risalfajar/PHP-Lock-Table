@@ -1,11 +1,15 @@
 <?php
 include "connect_by_session.php";
+
+$id = $_GET['id'];
+$query = "SELECT * from person where ID='$id'";
+$search = mysqli_query($conn, $query);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login V8</title>
+	<title>Edit</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -34,28 +38,40 @@ include "connect_by_session.php";
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form action="add_data.php" class="login100-form validate-form p-l-55 p-r-55 p-t-178" method="POST">
+				<form action="save_edit_data.php" class="login100-form validate-form p-l-55 p-r-55 p-t-178" method="POST">
 					<span class="login100-form-title">
-						Add person
+						Edit person
 					</span>
 					<span>
 						<p class="user" align="center"> Active User: <?php echo $_SESSION['username'] ?> </p>
 					</span>
 
+					<?php
+						while($data = mysqli_fetch_array($search)){
+					?>
+					<div class="wrap-input100 validate-input m-b-16" data-validate="">
+						<input class="input100" type="number" name="ID" placeholder="" readonly value="<?php echo $data[0]; ?>">
+						<span class="focus-input100"></span>
+					</div>
+
 					<div class="wrap-input100 validate-input m-b-16" data-validate="Please enter username">
-						<input class="input100" type="text" name="name" placeholder="Person Name">
+						<input class="input100" type="text" name="name" placeholder="Person Name" value="<?php echo $data[1]; ?>">
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate = "Please enter password">
-						<input class="input100" type="number" name="age" placeholder="Age">
+						<input class="input100" type="number" name="age" placeholder="Age" value="<?php echo $data[2]; ?>">
 						<span class="focus-input100"></span>
 					</div>
 					<div class="text-right p-t-13 p-b-23"></div>
+						
+					<?php
+						}
+					?>
 
 					<div class="container-login100-form-btn">
 						<button type="submit" class="login100-form-btn">
-							Add
+							Save
 						</button>
 					</div>
 
