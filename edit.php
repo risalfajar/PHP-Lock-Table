@@ -1,6 +1,33 @@
 <?php
 include "connect_by_session.php";
 
+#region CEK USER
+$query = "SELECT * FROM active_user WHERE name IS NOT NULL;";
+$result = mysqli_query($conn, $query);
+$data = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+if (!$result) {
+    printf("Error: %s\n", mysqli_error($conn));
+    exit();
+}
+
+if(isset($data['name'])){
+	if($data['name'] != $_SESSION['username']){
+		echo '<script language="javascript">';
+		echo 'alert("Table sedang dipakai");
+				window.location.href="view.php";';
+		echo '</script>';
+		die();
+	}
+}else{
+	$insert = mysqli_query($conn, "INSERT INTO active_user VALUES('".$_SESSION['username']."')");
+	if (!$insert) {
+		printf("Error: %s\n", mysqli_error($conn));
+		exit();
+	}
+}
+#endregion
+
 $id = $_GET['id'];
 $query = "SELECT * from person where ID='$id'";
 $search = mysqli_query($conn, $query);
@@ -32,6 +59,8 @@ $search = mysqli_query($conn, $query);
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
+	<script src="timer.js">
+	</script>
 </head>
 <body>
 	
@@ -44,6 +73,7 @@ $search = mysqli_query($conn, $query);
 					</span>
 					<span>
 						<p class="user" align="center"> Active User: <?php echo $_SESSION['username'] ?> </p>
+						<p id="timer" align="center"></p>
 					</span>
 
 					<?php

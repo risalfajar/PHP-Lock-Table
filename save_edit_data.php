@@ -12,6 +12,6 @@ if(!$conn){
 	echo '</script>';
 }else{
 	mysqli_query($conn, $query);
-	header("location:view.php");
+	include_once("timeout.php");
 }
 ?>

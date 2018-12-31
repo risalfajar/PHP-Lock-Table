@@ -1,5 +1,17 @@
 <?php
 include "connect_by_session.php";
+
+$query = "SHOW open tables";
+$sql = mysqli_query($conn, $query);
+while($data = mysqli_fetch_array($sql)){
+	if($data['Table'] == "person" && $data['In_use'] > 0){ //locked
+		echo '<script language="javascript">';
+		echo 'alert("Table sedang dipakai");
+				window.location.href="view.php";';
+		echo '</script>';
+		die();
+	}
+}
 ?>
 
 <!DOCTYPE html>

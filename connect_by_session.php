@@ -7,4 +7,5 @@ $host = gethostbyname($hostname);
 $db = "tugas";
 
 $conn = mysqli_connect($host, $username, $pass, $db);
+$rootconn = mysqli_connect("localhost", "root", "", $db);
 ?>
