@@ -1,5 +1,6 @@
 <?php
 include "connect_by_session.php";
+mysqli_query($conn, "DELETE FROM active_user WHERE name='". $_SESSION['username'] ."'");
 $query = "SELECT * FROM person";
 $sql = mysqli_query ($conn, $query);
 ?>

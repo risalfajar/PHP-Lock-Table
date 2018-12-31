@@ -8,7 +8,7 @@ var x = setInterval(function() {
 	if (time <= 0) {
 	  clearInterval(x);
 		document.getElementById("timer").innerHTML = "EXPIRED";
-		window.location = "timeout.php"
+		window.location = "view.php"
 	}
 	time -= 1000;
   }, 1000);
